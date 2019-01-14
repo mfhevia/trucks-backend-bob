@@ -5,7 +5,5 @@ module.exports = models => (req, res) => {
 
   models.Truck.findClosest({ lat, lng })
     .then(truck => res.json(truck))
-    .catch(err => {
-      res.boom.badImplementation(err)
-    });
+    .catch(err => res.boom.badImplementation(err));
 };
