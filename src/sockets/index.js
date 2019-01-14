@@ -1,7 +1,8 @@
 'use strict';
 
-const { DRIVER_STATUS_RESPONSE } = require('../constants');
+const { DRIVER_STATUS_RESPONSE, DRIVER_GEOLOCATION } = require('../constants');
 const responseStatus = require('./responseStatus');
+const driverGeolocation = require('./driverGeolocation');
 
 module.exports = (server, models) => ({
 
@@ -12,6 +13,7 @@ module.exports = (server, models) => ({
       console.log('Socket server connected with truck emulator');
       
       socket.on(DRIVER_STATUS_RESPONSE, responseStatus(models));
+      socket.on(DRIVER_GEOLOCATION, driverGeolocation(models));
     });
 
       return io;

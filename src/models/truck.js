@@ -33,7 +33,10 @@ const truckSchema = new Schema({
     type: pointSchema,
     required: false,
     default: null,
-    index: '2dsphere'
+    index: {
+      type: '2dsphere',
+      sparse: false
+    }
   },
 });
 
@@ -44,8 +47,7 @@ truckSchema.statics.findClosest = function({ lat, lng }) {
         $geometry: {
           type: 'Point',
           coordinates: [lat, lng]
-        },
-        $maxDistance: 900 * 1609.34
+        },     
       }
     }
   });
