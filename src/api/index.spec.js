@@ -22,4 +22,8 @@ describe('Routes registration', () => {
     it('Should register POST /status-event route', () => {
         expect(router.post.calledWith('/status-event')).to.be.true;
     });
+
+    it('Should register POST /closest-truck route', () => {
+        expect(router.post.calledWith('/closest-truck')).to.be.true;
+    });
 });

@@ -27,7 +27,7 @@ const truckSchema = new Schema({
   },
   status: {
     type: String,
-    required: true
+    required: false
   },
   location: {
     type: pointSchema,
@@ -36,6 +36,20 @@ const truckSchema = new Schema({
     index: '2dsphere'
   },
 });
+
+truckSchema.statics.findClosest = function({ lat, lng }) {
+  return this.findOne({
+    location: {
+      $nearSphere: {
+        $geometry: {
+          type: 'Point',
+          coordinates: [lat, lng]
+        },
+        $maxDistance: 900 * 1609.34
+      }
+    }
+  });
+};
 
 truckSchema.plugin(timestamp);
 module.exports = model('Truck', truckSchema);

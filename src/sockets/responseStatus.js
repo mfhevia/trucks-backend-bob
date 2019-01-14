@@ -11,34 +11,34 @@ const EXPIRED_TIME = 500;
 
 module.exports = models => ({ payload }) => {
 
-    console.log(`Received status event ${JSON.stringify(payload)}, updating data...`);
-    const { driverId, status } = payload;
+  console.log(`Received status event ${JSON.stringify(payload)}, updating data...`);
+  const { driverId, status } = payload;
 
-    // Checking last driver event to don`t have a huge load and don`t duplicate trucks in database
-    const lastEvent = cache[driverId];
-    if (lastEvent > (Date.now() - EXPIRED_TIME)) {
-      console.log(`Driver ${driverId} updated so recently, waiting for the next event`);
-      return;
-    }
-    cache[driverId] = Date.now();
+  // Checking last driver event to don`t have a huge load and don`t duplicate trucks in database
+  const lastEvent = cache[driverId];
+  if (lastEvent > (Date.now() - EXPIRED_TIME)) {
+    console.log(`Driver ${driverId} updated so recently, waiting for the next event`);
+    return;
+  }
+  cache[driverId] = Date.now();
 
-    const connected = status === 'stoped' ? false : true;
+  const connected = status === 'stoped' ? false : true;
 
-    models.Truck.findOne({ driverId })
-      .then(truck => {
-        if (!truck) {
-          // create
-          return models.Truck.create({
-            ...payload,
-            connected
-          })
-        }
+  models.Truck.findOne({ driverId })
+    .then(truck => {
+      if (!truck) {
+        // create
+        return models.Truck.create({
+          ...payload,
+          connected
+        })
+      }
 
-        // update
-        truck.status = status;
-        truck.connected = connected;
-        return truck.save();        
-      })
-      .then(truck => console.log(`Updated successfully ${truck}`))
-      .catch(console.error);
+      // update
+      truck.status = status;
+      truck.connected = connected;
+      return truck.save();        
+    })
+    .then(truck => console.log(`Updated successfully ${truck}`))
+    .catch(console.error);
 };
