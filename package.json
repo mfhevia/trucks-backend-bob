@@ -1,0 +1,25 @@
+{
+  "name": "truck-backend-bob",
+  "version": "1.0.0",
+  "description": "Backend for connect with bob trucker emulator of bob.io",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start-dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mario Fernández",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-boom": "^2.0.0",
+    "getconfig": "^4.5.0",
+    "mongoose": "^5.4.3",
+    "morgan": "^1.9.1",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
