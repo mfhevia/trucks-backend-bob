@@ -24,7 +24,11 @@ const truckSchema = new Schema({
   connected: {
     type: Boolean,
     required: true,
-  },  
+  },
+  status: {
+    type: String,
+    required: true
+  },
   location: {
     type: pointSchema,
     required: false,

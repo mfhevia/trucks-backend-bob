@@ -15,15 +15,13 @@ after(() => {
   db.close();
 });
 
-describe('GET /trucks', () => {
-  it('Should find all connected trucks', (done) => {
+describe('POST /status-event', () => {
+  it('Should send an new status event to all the drivers', (done) => {
     request(server)
-      .get('/trucks')
-      .expect(200)
-      .then(({ body }) => {
-        expect(body.trucks).to.be.an('array');
-        body.trucks.map(truck => expect(truck.connected).to.be.true);
-        expect()
+      .post('/status-event')
+      .expect(201)
+      .then((response) => {
+        expect(response.body.message).to.exist;
         done();
       });
   });

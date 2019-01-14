@@ -6,6 +6,8 @@ const boom = require('express-boom');
 const morgan = require('morgan')
 
 const app = express();
+const router = express.Router();
+const server = require('http').createServer(app);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,14 +18,15 @@ app.use(boom());
 // middleware logger
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev'));
 
-//Initializes websocket
-const server = require('http').createServer(app);
-//const socket = require('./socket')(server, models)
-const socket = require('./src/sockets')(server).init();
-
+// Initializes models
 const models = require('./src/models');
-const controllers = require('./src/api')(models, socket);
-const router = controllers.register();
+
+//Initializes socket server
+const socket = require('./src/sockets')(server, models).init();
+
+// Initializes api controllers
+const controllers = require('./src/api')(router, models, socket);
+controllers.register();
 app.use('/', router);
 
 // exports server instance
