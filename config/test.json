@@ -1,9 +1,9 @@
 {
     "server": {
-      "port": 3001,
+      "port": 40718,
       "host": "localhost"
     },
     "db": {
-      "url": "mongodb://127.0.0.1/express-mongoose-testing"
+      "url": "mongodb://127.0.0.1/bob-trucks-tests"
     } 
 }
