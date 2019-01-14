@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "start-dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-functional": "cross-env NODE_ENV=test nyc mocha ./tests --recursive --exit",
+    "test-unit": "cross-env NODE_ENV=test nyc mocha $(find src/ -path '*spec.js') --exit",
+    "test": "npm run test-functional && npm run test-unit"
   },
   "author": "Mario Fernández",
   "license": "ISC",
@@ -16,10 +18,17 @@
     "express-boom": "^2.0.0",
     "getconfig": "^4.5.0",
     "mongoose": "^5.4.3",
+    "mongoose-timestamp": "^0.6.0",
     "morgan": "^1.9.1",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "nyc": "^13.1.0",
+    "sinon": "^7.2.2",
+    "supertest": "^3.3.0"
   }
 }

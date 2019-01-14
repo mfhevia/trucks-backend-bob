@@ -1,3 +1,4 @@
 /node_modules
 /.nyc*
 /.vscode
+/.nyc_output

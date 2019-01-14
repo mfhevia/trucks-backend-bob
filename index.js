@@ -1,3 +1,5 @@
+'use strict';
+
 const config = require('getconfig');
 const app = require('./server');
 const db = require('./db');

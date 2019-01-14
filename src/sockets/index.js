@@ -9,7 +9,7 @@ module.exports = (server, models) => ({
         
         io.on('connection', socket => {
             console.log('Socket server connected with truck emulator');
-            socket.on('EVENT_NAME', (msg) => { //use events currified
+            socket.on('DRIVER_STATUS_RESPONSE', (msg) => { //use events currified
                 // socketEvents.blabla
             })
         });
