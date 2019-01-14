@@ -31,3 +31,4 @@ app.use('/', router);
 
 // exports server instance
 module.exports = server;
+module.exports.app = app;
